@@ -643,7 +643,7 @@ class Namespace : public detail::Registrar
           Add or replace a property member.
         */
         template<class TS>
-        Class<T>& addProperty(char const* name, void (T::*set)(TS))
+        Class<T>& addPropertySetter(char const* name, void (T::*set)(TS))
         {
             assertStackState(); // Stack: const table (co), class table (cl), static table (st)
 
