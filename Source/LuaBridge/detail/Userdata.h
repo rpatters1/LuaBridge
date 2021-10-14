@@ -115,7 +115,7 @@ private:
             }
 
             // Replace current metatable with it's base class.
-            lua_rawgetp(L, -1, getParentKey()); // Stack: rt, ot, parent ot (pot) | nil
+            getmtkey(L, -1, getParentKey()); // Stack: rt, ot, parent ot (pot) | nil
 
             if (lua_isnil(L, -1)) // Stack: rt, ot, nil
             {
@@ -157,7 +157,7 @@ private:
             }
 
             // Replace current metatable with it's base class.
-            lua_rawgetp(L, -1, getParentKey()); // Stack: rt, ot, parent ot (pot) | nil
+            getmtkey(L, -1, getParentKey()); // Stack: rt, ot, parent ot (pot) | nil
 
             if (lua_isnil(L, -1)) // Stack: rt, ot, nil
             {

@@ -137,4 +137,29 @@ void const* getConstRegistryKey()
 
 } // namespace detail
 
+/** Get a table metatable key value
+ */
+inline void getmtkey(lua_State* L, int index, const void * key)
+{
+    if ( key == detail::getClassKey() )
+    {
+        rawgetfield (L, index, "__class");
+        return;
+    }
+    lua_rawgetp(L, index, key);
+}
+
+/** Set a table metatable key value
+ */
+inline void setmtkey(lua_State* L, int index, const void * key)
+{
+    if ( key == detail::getClassKey() )
+    {
+        rawgetfield (L, index, "__class");
+        return;
+    }
+    lua_rawsetp(L, index, key);
+}
+
+
 } // namespace luabridge

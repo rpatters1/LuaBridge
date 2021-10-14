@@ -91,7 +91,7 @@ struct CFunc
 
             // Repeat the lookup in the parent metafield,
             // or return nil if the field doesn't exist.
-            lua_rawgetp(L, -1, getParentKey()); // Stack: mt, parent mt | nil
+            getmtkey(L, -1, getParentKey()); // Stack: mt, parent mt | nil
 
             if (lua_isnil(L, -1)) // Stack: mt, nil
             {
@@ -161,7 +161,7 @@ struct CFunc
             assert(lua_isnil(L, -1)); // Stack: mt, nil
             lua_pop(L, 1); // Stack: mt
 
-            lua_rawgetp(L, -1, getParentKey()); // Stack: mt, parent mt | nil
+            getmtkey(L, -1, getParentKey()); // Stack: mt, parent mt | nil
 
             if (lua_isnil(L, -1)) // Stack: mt, nil
             {
