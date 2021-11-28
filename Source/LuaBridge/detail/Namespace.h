@@ -277,12 +277,15 @@ class Namespace : public detail::Registrar
         -3 const table
         -4 enclosing namespace table
     */
+public:
     template<class T>
     class Class : public ClassBase
     {
         typedef detail::CFunc CFunc;
 
     public:
+        using ClassBase::assertStackState;
+        
         //==========================================================================
         /**
           Register a new class or add to an existing class registration.
