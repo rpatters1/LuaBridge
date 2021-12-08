@@ -285,6 +285,7 @@ public:
 
     public:
         using ClassBase::assertStackState;
+        lua_State * state() { return L; }
         
         //==========================================================================
         /**
