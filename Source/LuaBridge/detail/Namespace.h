@@ -277,12 +277,15 @@ class Namespace : public detail::Registrar
         -3 const table
         -4 enclosing namespace table
     */
+public:
     template<class T>
     class Class : public ClassBase
     {
         typedef detail::CFunc CFunc;
 
     public:
+        using ClassBase::assertStackState;
+        
         //==========================================================================
         /**
           Register a new class or add to an existing class registration.
@@ -634,6 +637,24 @@ class Namespace : public detail::Registrar
                 lua_pushcclosure(L, &CFunc::CallMember<set_t>::f, 1); // Stack: co, cl, st, setter
                 CFunc::addSetter(L, name, -3); // Stack: co, cl, st
             }
+
+            return *this;
+        }
+
+        //--------------------------------------------------------------------------
+        /**
+          Add or replace a property member.
+        */
+        template<class TS>
+        Class<T>& addPropertySetter(char const* name, void (T::*set)(TS))
+        {
+            assertStackState(); // Stack: const table (co), class table (cl), static table (st)
+
+            typedef void (T::*set_t)(TS);
+            new (lua_newuserdata(L, sizeof(set_t)))
+                set_t(set); // Stack: co, cl, st, function ptr
+            lua_pushcclosure(L, &CFunc::CallMember<set_t>::f, 1); // Stack: co, cl, st, setter
+            CFunc::addSetter(L, name, -3); // Stack: co, cl, st
 
             return *this;
         }
