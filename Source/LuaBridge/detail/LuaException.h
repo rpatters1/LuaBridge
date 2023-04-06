@@ -41,6 +41,8 @@ private:
   std::string m_what;
 
 public:
+   lua_State* state() const { return m_L; }
+   
   //----------------------------------------------------------------------------
   /**
       Construct a LuaException after a lua_pcall().
